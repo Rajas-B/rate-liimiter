@@ -1,0 +1,23 @@
+[
+    {
+        "endpoint": "/api/endpoint1",
+        "rate": 2,
+        "cost": 5,
+        "per": "minute",
+        "capacity": 20
+    },
+    {
+        "endpoint": "/api/endpoint2",
+        "rate": 2,
+        "cost": 10,
+        "per": "second",
+        "capacity": 30
+    },
+    {
+        "endpoint": "/api/endpoint3",
+        "rate": 1,
+        "cost": 10,
+        "per": "hour",
+        "capacity": 35
+    }
+]
