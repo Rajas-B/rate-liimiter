@@ -1,0 +1,9 @@
+[
+    {
+        "endpoint": "/api/stress",
+        "rate": 1000000,
+        "cost": 1,
+        "per": "second",
+        "capacity": 1000000
+    }
+]
