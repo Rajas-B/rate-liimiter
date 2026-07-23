@@ -7,12 +7,15 @@
 #include <chrono>
 #include "rate_limiter/bucket/Bucket.hpp"
 #include "rate_limiter/bucket/BucketShard.hpp"
+#include "rate_limiter/MetricsCollector.hpp"
+#include "rate_limiter/RateLimitResponse.hpp"
 #include "rate_limiter/TimeSource.hpp"
 
 class Endpoint {
 public:
     Endpoint(std::string endpoint_, double rate_, int cost_, int capacity_,
-             std::shared_ptr<TimeSource> time_source);
+             std::shared_ptr<TimeSource> time_source,
+             std::shared_ptr<MetricsCollector> metrics = nullptr);
     ~Endpoint() = default;
 
     Endpoint(const Endpoint&) = delete;
@@ -21,8 +24,11 @@ public:
     Endpoint& operator=(Endpoint&&) = default;
 
     bool handleRequest(const std::string& uid);
+    RateLimitResponse checkLimit(const std::string& uid);
     std::vector<BucketShard>& accessShards();
     std::chrono::steady_clock::duration& accessTtl();
+    const std::string& key() const;
+    int getCapacity() const;
 
 private:
     int shards = 32;
@@ -33,5 +39,6 @@ private:
     int capacity;
     std::chrono::steady_clock::duration ttl;
     std::shared_ptr<TimeSource> time_source_;
+    std::shared_ptr<MetricsCollector> metrics_;
 };
 

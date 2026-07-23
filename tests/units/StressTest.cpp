@@ -18,7 +18,7 @@ StressTest::StressTest()
     : Test(std::make_shared<SystemTimeSource>()) {}
 
 void StressTest::execute() {
-    _rateLimiter.readConfigFile("resources/stress_test_config.json");
+    _rateLimiter.readConfigFile(TEST_RESOURCES_DIR"/stress_test_config.json");
     _rateLimiter.start();
 
     const unsigned int threadCount = std::thread::hardware_concurrency();

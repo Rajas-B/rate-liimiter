@@ -1,23 +1,25 @@
 [
     {
-        "endpoint": "/api/endpoint1",
-        "rate": 2,
-        "cost": 5,
+        "endpoint": "/api/items",
+        "method": "GET",
+        "rate": 100,
+        "cost": 1,
         "per": "minute",
-        "capacity": 20
+        "capacity": 100
     },
     {
-        "endpoint": "/api/endpoint2",
-        "rate": 2,
-        "cost": 10,
-        "per": "second",
-        "capacity": 30
+        "endpoint": "/api/items",
+        "method": "POST",
+        "rate": 10,
+        "cost": 1,
+        "per": "minute",
+        "capacity": 10
     },
     {
-        "endpoint": "/api/endpoint3",
-        "rate": 1,
-        "cost": 10,
-        "per": "hour",
-        "capacity": 35
+        "endpoint": "/*",
+        "rate": 60,
+        "cost": 1,
+        "per": "minute",
+        "capacity": 60
     }
 ]

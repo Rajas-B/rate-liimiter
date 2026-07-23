@@ -1,5 +1,6 @@
 # Build output
 /build/
+/build-release/
 /cmake-build-*/
 /out/
 
@@ -20,3 +21,6 @@ playground
 # OS files
 .DS_Store
 Thumbs.db
+
+# log files
+*.log

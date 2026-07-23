@@ -19,5 +19,28 @@
         "cost": 10,
         "per": "hour",
         "capacity": 35
+    },
+    {
+        "endpoint": "/api/items",
+        "method": "GET",
+        "rate": 100,
+        "cost": 1,
+        "per": "minute",
+        "capacity": 100
+    },
+    {
+        "endpoint": "/api/items",
+        "method": "POST",
+        "rate": 10,
+        "cost": 1,
+        "per": "minute",
+        "capacity": 10
+    },
+    {
+        "endpoint": "/*",
+        "rate": 60,
+        "cost": 1,
+        "per": "minute",
+        "capacity": 60
     }
 ]

@@ -11,6 +11,8 @@ find_package(RapidJSON REQUIRED)
 add_library(rate_limiter STATIC
     src/rate_limiter/RateLimiter.cpp
     src/rate_limiter/Endpoint.cpp
+    include/rate_limiter/MetricsCollector.hpp
+    tests/units/MetadataTest.hpp
 )
 
 # Public headers: exposed to consumers of the library
@@ -35,16 +37,25 @@ target_compile_definitions(rate_limiter PUBLIC $<$<CONFIG:Debug>:LOG_DEBUG_ENABL
 # ---- Test runner (playground) ----
 add_executable(playground
     tests/playground.cpp
-    tests/NormalTest.cpp
-    tests/BackgroundInvalidationTest.cpp
-    tests/StressTest.cpp
     tests/TestFactory.cpp
+    tests/units/NormalTest.cpp
+    tests/units/BackgroundInvalidationTest.cpp
+    tests/units/StressTest.cpp
+    tests/units/MetadataTest.cpp
+    tests/units/PerMethodTest.cpp
+    tests/units/FallbackTest.cpp
+    tests/units/HotReloadTest.cpp
+    tests/units/MetricsTest.cpp
+    tests/units/FallbackTest.hpp
+    tests/units/HotReloadTest.hpp
+    tests/units/MetricsTest.hpp
 )
 
 target_include_directories(playground PRIVATE
     ${CMAKE_CURRENT_SOURCE_DIR}/include
     ${CMAKE_CURRENT_SOURCE_DIR}/src
     ${CMAKE_CURRENT_SOURCE_DIR}/tests
+    ${CMAKE_CURRENT_SOURCE_DIR}/tests/units
 )
 
 target_link_libraries(playground PRIVATE rate_limiter)
@@ -54,4 +65,8 @@ add_custom_command(TARGET playground POST_BUILD
     COMMAND ${CMAKE_COMMAND} -E copy_directory
     ${CMAKE_CURRENT_SOURCE_DIR}/tests/resources
     $<TARGET_FILE_DIR:playground>/resources
+)
+
+target_compile_definitions(playground PRIVATE
+    TEST_RESOURCES_DIR="${CMAKE_CURRENT_SOURCE_DIR}/tests/resources"
 )
